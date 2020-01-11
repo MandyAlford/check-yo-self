@@ -2,7 +2,7 @@ class TodoList {
   constructor(){
     this.id = ;
     this.title = "";
-    this.tasks = {};
+    this.tasks = [];
     this.urgent = false;
   }
   saveToStorage(){
