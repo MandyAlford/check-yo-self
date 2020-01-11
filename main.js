@@ -14,7 +14,7 @@ function addTaskItem(){
 
   draftArea.innerHTML += `<div class="draft-task-item">
                             <img class="draft-delete" src="assets/delete.svg"/>
-                            <p>${getTaskItem().value}</p>
+                            <p class="task-item">${getTaskItem().value}</p>
                           </div>`;
   resetTaskItemInput();
 }
@@ -32,12 +32,45 @@ function deleteTaskItem(){
 }
 
 function enableAddBtn(){
-    var addTaskBtn = document.querySelector('#add-task-btn');
+  var addTaskBtn = document.querySelector('#add-task-btn');
   if (getTaskItem().value){
     addTaskBtn.classList.remove('avoid-clicks');
   }
 }
 
 function makeTaskList(){
+  var taskTitle = document.querySelector('#task-title-input');
+  var taskItems = document.querySelectorAll('.task-item');
+  var cardContainer = document.querySelector('.card-container');
+  var tasks = '';
+  for(var i = 0; i < taskItems.length; i++) {
+      tasks +=
+        `<div class="card-task">
+            <img src="assets/checkbox.svg" class="checkbox">
+              <p>${taskItems[i].innerText}</p>
+         </div>`;
+  }
+  var todoCardContent=
+    `<div class="card">
+      <div class="card-title">
+      <h2 class="task-title">${taskTitle.value}</h2>
+      </div>
+      <div class="task-list">
+    ${tasks}
+      </div>
+      <div class="card-action">
+        <img src="assets/urgent.svg" alt="mark-urgent">
+        <img src="assets/delete.svg" alt="delete">
+      </div>
+    </div>`
+  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
+  clearDraftTask();
+}
 
+function clearDraftTask(){
+  var taskTitle = document.querySelector('#task-title-input');
+  var draftArea = document.querySelector('.draft-task');
+  resetTaskItemInput();
+  taskTitle.value = "";
+  draftArea.innerHTML = "";
 }
