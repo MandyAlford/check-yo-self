@@ -120,7 +120,13 @@ body {
 }
 
 .task-list {
+  display: flex;
+  flex-direction: column;
   min-height: 200px;
+}
+
+.card-task{
+  display: flex;
 }
 
 .card-action {
