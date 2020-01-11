@@ -125,7 +125,18 @@ body {
   padding: 2%;
 }
 
-.checkbox {
+.checkbox,
+.draft-delete {
   height: 18px;
+  margin: 2%;
+}
+
+.draft-task {
+  min-height: 300px;
+}
+
+.draft-task-item {
+  align-items: center;
+  display: flex;
   margin: 2%;
 }
