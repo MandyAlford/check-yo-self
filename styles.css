@@ -60,6 +60,10 @@ main {
   padding: 1%;
 }
 
+.avoid-clicks {
+  pointer-events: none;
+}
+
 .task-creation {
   color: #F2F6F7;
 }
@@ -116,7 +120,13 @@ body {
 }
 
 .task-list {
+  display: flex;
+  flex-direction: column;
   min-height: 200px;
+}
+
+.card-task{
+  display: flex;
 }
 
 .card-action {
@@ -132,7 +142,7 @@ body {
 }
 
 .draft-task {
-  min-height: 300px;
+  min-height: 50px;
 }
 
 .draft-task-item {
