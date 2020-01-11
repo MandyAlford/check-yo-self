@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+  color: #264653;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+img {
+  height: 30px;
+}
+
+header {
+  background-color: #1F1E3D;
+  color: #ffffff;
+  display: flex;
+  height: 10vh;
+  justify-content: space-between;
+}
+
+header input {
+  height: 30px;
+}
+
+span {
+  color: #ffc30c;
+}
+
+#search-btn{
+  background-color: #f3f6f7;
+}
+
+html {
+  height: 100%;
+}
+body {
+
+}
+
+main {
+  display: flex;
+}
+
+.task-creation {
+  background-color: #597A8A;
+  height: 100%;
+  text-align: center;
+  width: 33%;
+}
+
+.buttons-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons-section button {
+  background-color: #1F1E3D;
+  border: solid 2px #1F1E3D;
+  height: 30px;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  width: 90%;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: auto;
+}
+
+.card-container {
+  background-color: #F2F6F7;
+  width: 66%;
+}
+
+.card {
+  background-color: #fafdff;
+  border: solid 3px #c7d3d8;
+  color: #1F1E3D;
+  margin: 2%;
+  width: 45%;
+}
+
+.card-title,
+.task-list {
+  border-bottom: solid 3px #c7d3d8;
+  padding: 2%
+}
+
+.urgent {
+  background-color: #FFE89d;
+  border: solid 3px #FFCC2C;
+}
+
+.urgent2 {
+  border-bottom: solid 3px #FFCC2C;
+}
+
+.task-list {
+  min-height: 200px;
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+}
+
+.checkbox {
+  height: 18px;
+  margin: 2%;
+}

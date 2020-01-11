@@ -2,45 +2,52 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Check Yo' Self</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
   </head>
   <body>
     <header>
-      <h1>CHECK<span>YO'</span>SELF</h1>
+      <h1>CHECK<span> YO' </span>SELF</h1>
       <div>
-        <img src="assets/search.svg" alt="search">
+        <img src="assets/search.svg" id="search-btn" alt="search">
+        <!-- <i src="assets/search.svg"class="search-btn"></i> -->
         <input type="search" placeholder="Search">
       </div>
     </header>
-    <section class="task-creation">
-      <p>Task Title</p>
-      <input id="task-title-input" type="text">
-      <section class="draft-task">
-      </section>
-      <p>Task Item</p>
-      <div>
-        <input id="task-item-input" type="text">
-        <img src="" alt="">
-      </div>
-      <button id="make-task-btn"></button>
-      <button id="clear-btn"></button>
-      <button id="filter-btn"></button>
-    </section>
-    <section class="card-container">
-
-      <div class="card">
-        <div class="card-title">
-        <h2 class="outfit-name">${displayValue}</h2>
-        </div>
-        <div class="task-list">
-          <img src="assets/checkbox.svg" alt="checkbox">
-        </div>
+    <main>
+      <section class="task-creation">
+        <p>Task Title</p>
+        <input id="task-title-input" placeholder="Enter New ToDo Title" type="text">
+        <section class="draft-task">
+        </section>
+        <p>Task Item</p>
         <div>
-          <img src="assets/urgent.svg" alt="mark-urgent">
-          <img src="assets/delete.svg" alt="delete">
+          <input id="task-item-input" placeholder="Enter a new task" type="text">
+          <img src="assets/plus.svg" alt="">
         </div>
-      </div>
+        <section class ="buttons-section">
+          <button id="make-task-btn"></button>
+          <button id="clear-btn"></button>
+          <button id="filter-btn"></button>
+        </section>
+      </section>
+      <section class="card-container">
 
-    </section>
+        <div class="card urgent">
+          <div class="card-title urgent2">
+          <h2 class="task-title">Task Title</h2>
+          </div>
+          <div class="task-list urgent2">
+            <img src="assets/checkbox.svg" class="checkbox">
+          </div>
+          <div class="card-action">
+            <img src="assets/urgent.svg" alt="mark-urgent">
+            <img src="assets/delete.svg" alt="delete">
+          </div>
+        </div>
+
+      </section>
+    </main>
   </body>
 </html>
