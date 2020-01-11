@@ -4,6 +4,7 @@ document.querySelector('#add-task-btn').addEventListener('click', addTaskItem);
 document.querySelector('.draft-task').addEventListener('click', deleteTaskItem);
 document.querySelector('#task-item-input').addEventListener('keyup', enableAddBtn);
 document.querySelector('#make-task-btn').addEventListener('click', makeTaskList);
+document.querySelector('#task-title-input').addEventListener('keyup', enableMakeTaskBtn);
 
 function getTaskItem(){
     return document.querySelector('#task-item-input');
@@ -73,4 +74,14 @@ function clearDraftTask(){
   resetTaskItemInput();
   taskTitle.value = "";
   draftArea.innerHTML = "";
+}
+
+function enableMakeTaskBtn(){
+  var taskTitle = document.querySelector('#task-title-input');
+  var makeTaskBtn = document.querySelector('#make-task-btn');
+  var draftArea = document.querySelector('.draft-task');
+
+  if ((draftArea.innerHTML !=="") && (taskTitle.value)){
+    makeTaskBtn.classList.remove('avoid-clicks');
+  }
 }
