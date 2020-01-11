@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  color: #264653;
   font-family: 'Open Sans', sans-serif;
   margin: 0;
 }
@@ -16,9 +15,11 @@ header {
   display: flex;
   height: 14%;
   justify-content: space-between;
+  padding: 1%;
 }
 
 input {
+  border: solid 2px #1F1E3D;
   height: 35px;
   width: 250px;
 }
@@ -30,7 +31,7 @@ span {
 #search-btn{
   background-color: #f3f6f7;
   border: 2px solid #f3f6f7;
-  height: 34px;
+  height: 31px;
   margin-bottom: -4%;
   margin-top: 1%;
   margin-right: -1%;
@@ -39,9 +40,6 @@ span {
 html {
   height: 100%;
 }
-body {
-
-}
 
 main {
   display: flex;
@@ -49,15 +47,28 @@ main {
 
 .task-creation {
   background-color: #597A8A;
-  height: 100%;
+  min-height: 100vh;
   text-align: center;
   width: 33%;
+}
+
+#add-task-btn {
+  background-color: #1F1E3D;
+  height: 34px;
+  margin-bottom: -2.6%;
+  margin-left: -1%;
+  padding: 1%;
+}
+
+.task-creation {
+  color: #F2F6F7;
 }
 
 .buttons-section {
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin-top: 5%;
 }
 
 .buttons-section button {
