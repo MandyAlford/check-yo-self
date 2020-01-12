@@ -121,8 +121,7 @@ function generateId(){
 }
 
 function onPageLoad(){
-  var tempList = localStorage.getItem("masterList");
-  var masterList = JSON.parse(tempList) || [];
+  var masterList = getTodoListsFromStorage();
 
   for (var i = 0; i < masterList.length; i++){
 
@@ -130,6 +129,14 @@ function onPageLoad(){
     addCardToPage(todoCardContent);
   }
 }
+
+function getTodoListsFromStorage(){
+  var tempList = localStorage.getItem("masterList");
+  return JSON.parse(tempList) || [];
+
+
+}
+
 
 function clearAll(){
   clearDraftTask();
@@ -148,7 +155,6 @@ function completeTask(){
 }
 
 function activateCheckbox(){
-// debugger
   event.target.classList.remove('checkbox');
   event.target.classList.add('checkbox-active');
   event.target.nextElementSibling.classList.add('active');
