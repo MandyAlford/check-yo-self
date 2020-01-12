@@ -5,6 +5,9 @@ document.querySelector('.draft-task').addEventListener('click', deleteTaskItem);
 document.querySelector('#task-item-input').addEventListener('keyup', enableAddBtn);
 document.querySelector('#make-task-btn').addEventListener('click', makeTaskList);
 document.querySelector('#task-title-input').addEventListener('keyup', enableMakeTaskBtn);
+document.querySelector('#clear-btn').addEventListener('click', clearAll);
+
+document.onload = onPageLoad();
 
 function getTaskItem(){
     return document.querySelector('#task-item-input');
@@ -18,6 +21,7 @@ function addTaskItem(){
                             <p class="task-item">${getTaskItem().value}</p>
                           </div>`;
   resetTaskItemInput();
+  enableMakeTaskBtn();
 }
 
 function resetTaskItemInput(){
@@ -41,20 +45,37 @@ function enableAddBtn(){
 
 function makeTaskList(){
   var taskTitle = document.querySelector('#task-title-input');
+  var taskTitleVal = taskTitle.value
   var taskItems = document.querySelectorAll('.task-item');
+  var makeTaskBtn = document.querySelector('#make-task-btn');
+
+  clearDraftTask();
+  var todoList = makeTodoList(taskTitleVal, taskItems);
+  var todoCardContent = generateCardContent(todoList);
+
+  addCardToPage(todoCardContent);
+  todoList.saveToStorage();
+  makeTaskBtn.classList.add('avoid-clicks');
+}
+
+function addCardToPage(todoCardContent){
   var cardContainer = document.querySelector('.card-container');
+  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
+}
+
+function generateCardContent(todoList){
   var tasks = '';
-  for(var i = 0; i < taskItems.length; i++) {
+  debugger
+  for(var i = 0; i < todoList.tasks.length; i++) {
       tasks +=
         `<div class="card-task">
             <img src="assets/checkbox.svg" class="checkbox">
-              <p>${taskItems[i].innerText}</p>
+              <p>${todoList.tasks[i].name}</p>
          </div>`;
   }
-  var todoCardContent=
-    `<div class="card">
+  return `<div class="card">
       <div class="card-title">
-      <h2 class="task-title">${taskTitle.value}</h2>
+      <h2 class="task-title">${todoList.title}</h2>
       </div>
       <div class="task-list">
     ${tasks}
@@ -64,8 +85,6 @@ function makeTaskList(){
         <img src="assets/delete.svg" alt="delete">
       </div>
     </div>`
-  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
-  clearDraftTask();
 }
 
 function clearDraftTask(){
@@ -81,7 +100,38 @@ function enableMakeTaskBtn(){
   var makeTaskBtn = document.querySelector('#make-task-btn');
   var draftArea = document.querySelector('.draft-task');
 
-  if ((draftArea.innerHTML !=="") && (taskTitle.value)){
+  if ((draftArea.innerText !=="") && (taskTitle.value)){
     makeTaskBtn.classList.remove('avoid-clicks');
   }
+}
+
+function makeTodoList(taskTitleVal, taskItems){
+  var list = [];
+  var id = generateId();
+
+  for(var i = 0; i<taskItems.length; i++){
+    list.push(new Task(taskItems[i].innerText));
+  }
+  return new TodoList(id, taskTitleVal, list);
+}
+
+function generateId(){
+  return Date.now();
+}
+
+function onPageLoad(){
+  var tempList = localStorage.getItem("masterList");
+  var masterList = JSON.parse(tempList) || [];
+  // debugger
+  for (var i = 0; i < masterList.length; i++){
+    // debugger
+    var  todoCardContent = generateCardContent(masterList[i]);
+    addCardToPage(todoCardContent);
+  }
+}
+
+function clearAll(){
+  clearDraftTask();
+  resetTaskItemInput();
+  document.querySelector('#task-title-input').innerText = "";
 }
