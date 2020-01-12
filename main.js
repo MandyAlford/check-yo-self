@@ -5,7 +5,7 @@ document.querySelector('.draft-task').addEventListener('click', deleteTaskItem);
 document.querySelector('#task-item-input').addEventListener('keyup', enableAddBtn);
 document.querySelector('#make-task-btn').addEventListener('click', makeTaskList);
 document.querySelector('#task-title-input').addEventListener('keyup', enableMakeTaskBtn);
-// document.querySelector('#clear-btn').addEventListener('click' clearAll);
+document.querySelector('#clear-btn').addEventListener('click', clearAll);
 
 document.onload = onPageLoad();
 
@@ -51,7 +51,7 @@ function makeTaskList(){
   clearDraftTask();
   var todoList = makeTodoList(taskTitleVal, taskItems);
   var todoCardContent = generateCardContent(todoList);
-  
+
   addCardToPage(todoCardContent);
   todoList.saveToStorage();
   makeTaskBtn.classList.add('avoid-clicks');
@@ -99,7 +99,7 @@ function enableMakeTaskBtn(){
   var makeTaskBtn = document.querySelector('#make-task-btn');
   var draftArea = document.querySelector('.draft-task');
 
-  if ((draftArea.innerHTML !=="") && (taskTitle.value)){
+  if ((draftArea.innerText !=="") && (taskTitle.value)){
     makeTaskBtn.classList.remove('avoid-clicks');
   }
 }
@@ -120,15 +120,17 @@ function generateId(){
 
 function onPageLoad(){
   var tempList = localStorage.getItem("masterList");
-  var masterList = JSON.parse(tempList);
-
+  var masterList = JSON.parse(tempList) || [];
+  // debugger
   for (var i = 0; i < masterList.length; i++){
-    debugger
+    // debugger
     var  todoCardContent = generateCardContent(masterList[i]);
     addCardToPage(todoCardContent);
   }
 }
 
-// function clearAll(){
-//   console.log('clicked');
-// }
+function clearAll(){
+  clearDraftTask();
+  resetTaskItemInput();
+  document.querySelector('#task-title-input').innerText = "";
+}
