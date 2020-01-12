@@ -1,4 +1,4 @@
-
+var masterList = [];
 
 document.querySelector('#add-task-btn').addEventListener('click', addTaskItem);
 document.querySelector('.draft-task').addEventListener('click', deleteTaskItem);
@@ -52,7 +52,7 @@ function makeTaskList(){
   var todoCardContent = generateCardContent(todoList);
   cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
 
-  storeTodoList(todoList);
+  todoList.saveToStorage();
 
   makeTaskBtn.classList.add('avoid-clicks');
 }
@@ -113,8 +113,4 @@ function makeTodoList(taskTitleVal, taskItems){
 
 function generateId(){
   return Date.now();
-}
-
-function storeTodoList(todoList){
-  // localStorage.setItem()
 }
