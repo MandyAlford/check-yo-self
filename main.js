@@ -21,6 +21,7 @@ function addTaskItem(){
                             <p class="task-item">${getTaskItem().value}</p>
                           </div>`;
   resetTaskItemInput();
+  enableMakeTaskBtn();
 }
 
 function resetTaskItemInput(){
