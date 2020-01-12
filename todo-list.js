@@ -1,12 +1,13 @@
 class TodoList {
-  constructor(id, title, tasks){
+  constructor(id, title, tasks, urgent){
     this.id = id;
     this.title = title;
     this.tasks = tasks;
-    this.urgent = false;
+    this.urgent = urgent ||false;
   }
+  
   saveToStorage(){
-    if (localStorage.length===0){
+    if (localStorage.length === 0){
       var list = [];
     } else {
       var tempList= localStorage.getItem("masterList");
