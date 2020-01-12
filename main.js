@@ -1,10 +1,13 @@
-var masterList = [];
+
 
 document.querySelector('#add-task-btn').addEventListener('click', addTaskItem);
 document.querySelector('.draft-task').addEventListener('click', deleteTaskItem);
 document.querySelector('#task-item-input').addEventListener('keyup', enableAddBtn);
 document.querySelector('#make-task-btn').addEventListener('click', makeTaskList);
 document.querySelector('#task-title-input').addEventListener('keyup', enableMakeTaskBtn);
+// document.querySelector('#clear-btn').addEventListener('click' clearAll);
+
+document.onload = onPageLoad();
 
 function getTaskItem(){
     return document.querySelector('#task-item-input');
@@ -43,23 +46,25 @@ function makeTaskList(){
   var taskTitle = document.querySelector('#task-title-input');
   var taskTitleVal = taskTitle.value
   var taskItems = document.querySelectorAll('.task-item');
-  var cardContainer = document.querySelector('.card-container');
   var makeTaskBtn = document.querySelector('#make-task-btn');
-
 
   clearDraftTask();
   var todoList = makeTodoList(taskTitleVal, taskItems);
   var todoCardContent = generateCardContent(todoList);
-  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
-
+  
+  addCardToPage(todoCardContent);
   todoList.saveToStorage();
-
   makeTaskBtn.classList.add('avoid-clicks');
+}
+
+function addCardToPage(todoCardContent){
+  var cardContainer = document.querySelector('.card-container');
+  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
 }
 
 function generateCardContent(todoList){
   var tasks = '';
-
+  debugger
   for(var i = 0; i < todoList.tasks.length; i++) {
       tasks +=
         `<div class="card-task">
@@ -102,15 +107,28 @@ function enableMakeTaskBtn(){
 function makeTodoList(taskTitleVal, taskItems){
   var list = [];
   var id = generateId();
-  // console.log(taskTitleVal, taskItems);
+
   for(var i = 0; i<taskItems.length; i++){
     list.push(new Task(taskItems[i].innerText));
   }
-
-  // var todolist = new TodoList(id, taskTitleVal, list);
   return new TodoList(id, taskTitleVal, list);
 }
 
 function generateId(){
   return Date.now();
 }
+
+function onPageLoad(){
+  var tempList = localStorage.getItem("masterList");
+  var masterList = JSON.parse(tempList);
+
+  for (var i = 0; i < masterList.length; i++){
+    debugger
+    var  todoCardContent = generateCardContent(masterList[i]);
+    addCardToPage(todoCardContent);
+  }
+}
+
+// function clearAll(){
+//   console.log('clicked');
+// }
