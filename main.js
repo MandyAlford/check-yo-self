@@ -6,6 +6,7 @@ document.querySelector('#task-item-input').addEventListener('keyup', enableAddBt
 document.querySelector('#make-task-btn').addEventListener('click', makeTaskList);
 document.querySelector('#task-title-input').addEventListener('keyup', enableMakeTaskBtn);
 document.querySelector('#clear-btn').addEventListener('click', clearAll);
+document.querySelector('.card-container').addEventListener('click', cardAction);
 
 document.onload = onPageLoad();
 
@@ -65,12 +66,12 @@ function addCardToPage(todoCardContent){
 
 function generateCardContent(todoList){
   var tasks = '';
-  debugger
+
   for(var i = 0; i < todoList.tasks.length; i++) {
       tasks +=
         `<div class="card-task">
-            <img src="assets/checkbox.svg" class="checkbox">
-              <p>${todoList.tasks[i].name}</p>
+            <div class="image checkbox"></div>
+            <p>${todoList.tasks[i].name}</p>
          </div>`;
   }
   return `<div class="card">
@@ -122,9 +123,9 @@ function generateId(){
 function onPageLoad(){
   var tempList = localStorage.getItem("masterList");
   var masterList = JSON.parse(tempList) || [];
-  // debugger
+
   for (var i = 0; i < masterList.length; i++){
-    // debugger
+
     var  todoCardContent = generateCardContent(masterList[i]);
     addCardToPage(todoCardContent);
   }
@@ -134,4 +135,21 @@ function clearAll(){
   clearDraftTask();
   resetTaskItemInput();
   document.querySelector('#task-title-input').innerText = "";
+}
+
+function cardAction(){
+  if (event.target.classList.contains('checkbox')){
+    activateCheckbox();
+  }
+}
+
+function completeTask(){
+
+}
+
+function activateCheckbox(){
+// debugger
+  event.target.classList.remove('checkbox');
+  event.target.classList.add('checkbox-active');
+  event.target.nextElementSibling.classList.add('active');
 }
