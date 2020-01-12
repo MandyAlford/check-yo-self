@@ -44,28 +44,32 @@ function makeTaskList(){
   var taskTitleVal = taskTitle.value
   var taskItems = document.querySelectorAll('.task-item');
   var cardContainer = document.querySelector('.card-container');
-  var todoCardContent = generateCardContent(taskItems, taskTitle);
   var makeTaskBtn = document.querySelector('#make-task-btn');
 
-  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
+
   clearDraftTask();
   var todoList = makeTodoList(taskTitleVal, taskItems);
+  var todoCardContent = generateCardContent(todoList);
+  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
+
   storeTodoList(todoList);
+
   makeTaskBtn.classList.add('avoid-clicks');
 }
 
-function generateCardContent(taskItems, taskTitle){
+function generateCardContent(todoList){
   var tasks = '';
-  for(var i = 0; i < taskItems.length; i++) {
+
+  for(var i = 0; i < todoList.tasks.length; i++) {
       tasks +=
         `<div class="card-task">
             <img src="assets/checkbox.svg" class="checkbox">
-              <p>${taskItems[i].innerText}</p>
+              <p>${todoList.tasks[i].name}</p>
          </div>`;
   }
   return `<div class="card">
       <div class="card-title">
-      <h2 class="task-title">${taskTitle.value}</h2>
+      <h2 class="task-title">${todoList.title}</h2>
       </div>
       <div class="task-list">
     ${tasks}
