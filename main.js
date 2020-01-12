@@ -41,8 +41,20 @@ function enableAddBtn(){
 
 function makeTaskList(){
   var taskTitle = document.querySelector('#task-title-input');
+  var taskTitleVal = taskTitle.value
   var taskItems = document.querySelectorAll('.task-item');
   var cardContainer = document.querySelector('.card-container');
+  var todoCardContent = generateCardContent(taskItems, taskTitle);
+  var makeTaskBtn = document.querySelector('#make-task-btn');
+
+  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
+  clearDraftTask();
+  var todoList = makeTodoList(taskTitleVal, taskItems);
+  storeTodoList(todoList);
+  makeTaskBtn.classList.add('avoid-clicks');
+}
+
+function generateCardContent(taskItems, taskTitle){
   var tasks = '';
   for(var i = 0; i < taskItems.length; i++) {
       tasks +=
@@ -51,8 +63,7 @@ function makeTaskList(){
               <p>${taskItems[i].innerText}</p>
          </div>`;
   }
-  var todoCardContent=
-    `<div class="card">
+  return `<div class="card">
       <div class="card-title">
       <h2 class="task-title">${taskTitle.value}</h2>
       </div>
@@ -64,8 +75,6 @@ function makeTaskList(){
         <img src="assets/delete.svg" alt="delete">
       </div>
     </div>`
-  cardContainer.insertAdjacentHTML('afterbegin', todoCardContent);
-  clearDraftTask();
 }
 
 function clearDraftTask(){
@@ -84,4 +93,24 @@ function enableMakeTaskBtn(){
   if ((draftArea.innerHTML !=="") && (taskTitle.value)){
     makeTaskBtn.classList.remove('avoid-clicks');
   }
+}
+
+function makeTodoList(taskTitleVal, taskItems){
+  var list = [];
+  var id = generateId();
+  // console.log(taskTitleVal, taskItems);
+  for(var i = 0; i<taskItems.length; i++){
+    list.push(new Task(taskItems[i].innerText));
+  }
+
+  // var todolist = new TodoList(id, taskTitleVal, list);
+  return new TodoList(id, taskTitleVal, list);
+}
+
+function generateId(){
+  return Date.now();
+}
+
+function storeTodoList(todoList){
+  // localStorage.setItem()
 }
