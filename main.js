@@ -6,6 +6,7 @@ document.querySelector('#task-item-input').addEventListener('keyup', enableAddBt
 document.querySelector('#make-task-btn').addEventListener('click', makeTaskList);
 document.querySelector('#task-title-input').addEventListener('keyup', enableMakeTaskBtn);
 document.querySelector('#clear-btn').addEventListener('click', clearAll);
+document.querySelector('.card-container').addEventListener('click', cardAction);
 
 document.onload = onPageLoad();
 
@@ -65,13 +66,19 @@ function addCardToPage(todoCardContent){
 
 function generateCardContent(todoList){
   var tasks = '';
-  debugger
+
   for(var i = 0; i < todoList.tasks.length; i++) {
-      tasks +=
-        `<div class="card-task">
-            <img src="assets/checkbox.svg" class="checkbox">
-              <p>${todoList.tasks[i].name}</p>
-         </div>`;
+    var checkboxStatus
+    if (todoList.tasks[i].completed === false){
+      checkboxStatus = "checkbox"
+    } else {
+      checkboxStatus = "checkbox-active"
+    }
+    tasks +=
+      `<div class="card-task">
+          <div class="image ${checkboxStatus}"></div>
+          <p>${todoList.tasks[i].name}</p>
+       </div>`;
   }
   return `<div class="card">
       <div class="card-title">
@@ -120,18 +127,80 @@ function generateId(){
 }
 
 function onPageLoad(){
-  var tempList = localStorage.getItem("masterList");
-  var masterList = JSON.parse(tempList) || [];
-  // debugger
+  var masterList = getTodoListsFromStorage();
+
   for (var i = 0; i < masterList.length; i++){
-    // debugger
+
     var  todoCardContent = generateCardContent(masterList[i]);
     addCardToPage(todoCardContent);
   }
 }
 
+function getTodoListsFromStorage(){
+  var tempList = localStorage.getItem("masterList");
+  var parsedList = JSON.parse(tempList)|| [];
+
+  return parsedList.map(function(todo){
+    return new TodoList(
+      todo.id,
+      todo.title,
+      todo.tasks.map(function(task){
+        return new Task(task.name, task.completed)
+      }),
+      todo.urgent
+    );
+  })
+}
+
+
 function clearAll(){
   clearDraftTask();
   resetTaskItemInput();
   document.querySelector('#task-title-input').innerText = "";
+}
+
+function cardAction(){
+  if (event.target.classList.contains('checkbox')){
+    activateCheckbox();
+    completeTask();
+  }
+}
+
+function completeTask(){
+  var currentTodoList
+  var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
+  var completedTaskName = event.target.nextElementSibling.innerText;
+  var masterList = getTodoListsFromStorage();
+  // debugger
+
+  for (var i = 0; i<masterList.length; i++){
+    if (masterList[i].title === activeTodoListTitle){
+      currentTodoList = masterList[i];
+    }
+  }
+  currentTodoList.updateTask(completedTaskName);
+  currentTodoList.updateStorage(masterList);
+  // debugger
+}
+
+// function updateTaskStatus(currentTodoList, completedTaskName){
+//   console.log(currentTodoList, completedTaskName);
+
+  // for (var i = 0; i < currentTodoList.tasks.length; i++){
+  //   if (currentTodoList.tasks[i].name === completedTaskName){
+  //
+  //   }
+  // }
+  // currentTodoList.find(function(task){
+  //   if (task === currentTodoList.task){
+  //     console.log(currentTodoList.task);
+  //   }
+  // })
+  // masterList[i].
+// }
+
+function activateCheckbox(){
+  event.target.classList.remove('checkbox');
+  event.target.classList.add('checkbox-active');
+  event.target.nextElementSibling.classList.add('active');
 }

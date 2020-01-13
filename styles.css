@@ -136,7 +136,8 @@ body {
 }
 
 .checkbox,
-.draft-delete {
+.draft-delete,
+.checkbox-active {
   height: 18px;
   margin: 2%;
 }
@@ -149,4 +150,17 @@ body {
   align-items: center;
   display: flex;
   margin: 2%;
+}
+
+div.image.checkbox {
+  content:url("assets/checkbox.svg");
+}
+
+div.image.checkbox-active {
+  content:url("assets/checkbox-active.svg");
+}
+
+.active {
+  color: #3c6577;
+  font-style: italic;
 }
