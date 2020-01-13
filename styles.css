@@ -54,6 +54,7 @@ main {
 
 #add-task-btn {
   background-color: #1F1E3D;
+  cursor: grabbing;
   height: 34px;
   margin-bottom: -2.6%;
   margin-left: -1%;
@@ -79,6 +80,7 @@ main {
   background-color: #1F1E3D;
   border: solid 2px #1F1E3D;
   color: #ffffff;
+  cursor: grabbing;
   height: 35px;
   margin-bottom: 1%;
   margin-top: 1%;
@@ -148,12 +150,14 @@ body {
 
 .draft-task-item {
   align-items: center;
+  cursor: grabbing;
   display: flex;
   margin: 2%;
 }
 
 div.image.checkbox {
   content:url("assets/checkbox.svg");
+  cursor: grabbing;
 }
 
 div.image.checkbox-active {
