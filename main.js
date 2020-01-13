@@ -23,6 +23,8 @@ function addTaskItem(){
                           </div>`;
   resetTaskItemInput();
   enableMakeTaskBtn();
+
+  document.querySelector('#clear-btn').classList.remove('avoid-clicks');
 }
 
 function resetTaskItemInput(){
@@ -70,14 +72,16 @@ function generateCardContent(todoList){
   for(var i = 0; i < todoList.tasks.length; i++) {
     var checkboxStatus
     if (todoList.tasks[i].completed === false){
-      checkboxStatus = "checkbox"
+      checkboxStatus = "checkbox";
+      classStatus = "";
     } else {
-      checkboxStatus = "checkbox-active"
+      checkboxStatus = "checkbox-active";
+      classStatus = 'class = "active"';
     }
     tasks +=
       `<div class="card-task">
           <div class="image ${checkboxStatus}"></div>
-          <p>${todoList.tasks[i].name}</p>
+          <p ${classStatus}>${todoList.tasks[i].name}</p>
        </div>`;
   }
   return `<div class="card">
@@ -157,6 +161,7 @@ function clearAll(){
   clearDraftTask();
   resetTaskItemInput();
   document.querySelector('#task-title-input').innerText = "";
+  document.querySelector('#clear-btn').classList.add('avoid-clicks');
 }
 
 function cardAction(){
@@ -165,19 +170,44 @@ function cardAction(){
     completeTask();
   } else if (event.target.classList.contains('delete-card')){
     deleteCard();
+    removeTodoListFromStorge(event);
   }
 }
+
+function removeTodoListFromStorge(event){
+
+  var activeTodoListTitle = event.target.parentElement.parentElement.children[0].innerText.trim();
+  var masterList = getTodoListsFromStorage();
+  var currentTodoList
+
+  for (var i = 0; i<masterList.length; i++){
+    if (masterList[i].title === activeTodoListTitle){
+      currentTodoList = masterList[i];
+      currentIndex = i;
+    }
+  }
+  console.log(currentTodoList, i);
+    debugger
+  currentTodoList.deleteFromStorage(masterList, currentIndex);
+}
+
 
 function deleteCard(){
   event.target.parentElement.parentElement.remove();
 }
 
+function pullActiveTodoList(event){
+  return event.target.parentElement.parentElement.parentElement.children[0].innerText;
+}
+
 function completeTask(){
   var currentTodoList
-  var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
+  var activeTodoListTitle = pullActiveTodoList(event);
+  debugger
+  // var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
   var completedTaskName = event.target.nextElementSibling.innerText;
   var masterList = getTodoListsFromStorage();
-
+  //
   for (var i = 0; i<masterList.length; i++){
     if (masterList[i].title === activeTodoListTitle){
       currentTodoList = masterList[i];
