@@ -88,8 +88,8 @@ function generateCardContent(todoList){
     ${tasks}
       </div>
       <div class="card-action">
-        <img src="assets/urgent.svg" alt="mark-urgent">
-        <img src="assets/delete.svg" alt="delete">
+        <img src="assets/urgent.svg" class="mark-urgent">
+        <img src="assets/delete.svg" class="delete-card">
       </div>
     </div>`
 }
@@ -163,7 +163,13 @@ function cardAction(){
   if (event.target.classList.contains('checkbox')){
     activateCheckbox();
     completeTask();
+  } else if (event.target.classList.contains('delete-card')){
+    deleteCard();
   }
+}
+
+function deleteCard(){
+  event.target.parentElement.parentElement.remove();
 }
 
 function completeTask(){
@@ -171,7 +177,6 @@ function completeTask(){
   var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
   var completedTaskName = event.target.nextElementSibling.innerText;
   var masterList = getTodoListsFromStorage();
-  // debugger
 
   for (var i = 0; i<masterList.length; i++){
     if (masterList[i].title === activeTodoListTitle){
@@ -180,24 +185,7 @@ function completeTask(){
   }
   currentTodoList.updateTask(completedTaskName);
   currentTodoList.updateStorage(masterList);
-  // debugger
 }
-
-// function updateTaskStatus(currentTodoList, completedTaskName){
-//   console.log(currentTodoList, completedTaskName);
-
-  // for (var i = 0; i < currentTodoList.tasks.length; i++){
-  //   if (currentTodoList.tasks[i].name === completedTaskName){
-  //
-  //   }
-  // }
-  // currentTodoList.find(function(task){
-  //   if (task === currentTodoList.task){
-  //     console.log(currentTodoList.task);
-  //   }
-  // })
-  // masterList[i].
-// }
 
 function activateCheckbox(){
   event.target.classList.remove('checkbox');
