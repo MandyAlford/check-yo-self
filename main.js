@@ -169,9 +169,33 @@ function cardAction(){
     activateCheckbox();
     completeTask();
   } else if (event.target.classList.contains('delete-card')){
-    deleteCard();
-    removeTodoListFromStorge(event);
+    checkTaskStatus();
+    // deleteCard();
+    // removeTodoListFromStorge(event);
   }
+}
+
+function checkTaskStatus(){
+  var activeTodoListTitle = event.target.parentElement.parentElement.children[0].innerText.trim();
+  var masterList = getTodoListsFromStorage();
+  var currentTodoList
+
+  for (var i = 0; i<masterList.length; i++){
+    if (masterList[i].title === activeTodoListTitle){
+      currentTodoList = masterList[i];
+      checkTasks(currentTodoList);
+    }
+  }
+}
+
+function checkTasks(currentTodoList){
+  currentTodoList.tasks.every(function(task) {
+    debugger
+    if (task.completed === true){
+      deleteCard();
+      removeTodoListFromStorge(event);
+    }
+  })
 }
 
 function removeTodoListFromStorge(event){
@@ -196,15 +220,15 @@ function deleteCard(){
   event.target.parentElement.parentElement.remove();
 }
 
-function pullActiveTodoList(event){
-  return event.target.parentElement.parentElement.parentElement.children[0].innerText;
-}
+// function pullActiveTodoList(event){
+//   return event.target.parentElement.parentElement.parentElement.children[0].innerText;
+// }
 
 function completeTask(){
   var currentTodoList
-  var activeTodoListTitle = pullActiveTodoList(event);
-  debugger
-  // var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
+  // var activeTodoListTitle = pullActiveTodoList(event);
+  // debugger
+  var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
   var completedTaskName = event.target.nextElementSibling.innerText;
   var masterList = getTodoListsFromStorage();
   //
