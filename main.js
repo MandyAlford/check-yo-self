@@ -132,9 +132,18 @@ function onPageLoad(){
 
 function getTodoListsFromStorage(){
   var tempList = localStorage.getItem("masterList");
-  return JSON.parse(tempList) || [];
+  var parsedList = JSON.parse(tempList)|| [];
 
-
+  return parsedList.map(function(todo){
+    return new TodoList(
+      todo.id,
+      todo.title,
+      todo.tasks.map(function(task){
+        return new Task(task.name, task.completed)
+      }),
+      todo.urgent
+    );
+  })
 }
 
 
@@ -147,12 +156,42 @@ function clearAll(){
 function cardAction(){
   if (event.target.classList.contains('checkbox')){
     activateCheckbox();
+    completeTask();
   }
 }
 
 function completeTask(){
+  var currentTodoList
+  var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
+  var completedTaskName = event.target.nextElementSibling.innerText;
+  var masterList = getTodoListsFromStorage();
+  // debugger
 
+  for (var i = 0; i<masterList.length; i++){
+    if (masterList[i].title === activeTodoListTitle){
+      currentTodoList = masterList[i];
+    }
+  }
+  currentTodoList.updateTask(completedTaskName);
+  currentTodoList.updateStorage(masterList);
+  // debugger
 }
+
+// function updateTaskStatus(currentTodoList, completedTaskName){
+//   console.log(currentTodoList, completedTaskName);
+
+  // for (var i = 0; i < currentTodoList.tasks.length; i++){
+  //   if (currentTodoList.tasks[i].name === completedTaskName){
+  //
+  //   }
+  // }
+  // currentTodoList.find(function(task){
+  //   if (task === currentTodoList.task){
+  //     console.log(currentTodoList.task);
+  //   }
+  // })
+  // masterList[i].
+// }
 
 function activateCheckbox(){
   event.target.classList.remove('checkbox');
