@@ -68,11 +68,33 @@ function generateCardContent(todoList){
   var tasks = '';
 
   for(var i = 0; i < todoList.tasks.length; i++) {
-      tasks +=
-        `<div class="card-task">
-            <div class="image checkbox"></div>
-            <p>${todoList.tasks[i].name}</p>
-         </div>`;
+    var checkboxStatus
+    if (todoList.tasks[i].completed === false){
+      checkboxStatus = "checkbox"
+    } else {
+      checkboxStatus = "checkbox-active"
+    }
+    tasks +=
+      `<div class="card-task">
+          <div class="image ${checkboxStatus}"></div>
+          <p>${todoList.tasks[i].name}</p>
+       </div>`;
+
+
+
+    // if (todoList.tasks[i].completed === false){
+    //   tasks +=
+    //   `<div class="card-task">
+    //       <div class="image checkbox"></div>
+    //       <p>${todoList.tasks[i].name}</p>
+    //    </div>`;
+    // } else {
+    //   tasks +=
+    //     `<div class="card-task">
+    //         <div class="image checkbox-active"></div>
+    //         <p>${todoList.tasks[i].name}</p>
+    //      </div>`;
+    // }
   }
   return `<div class="card">
       <div class="card-title">
