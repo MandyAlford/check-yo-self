@@ -3,9 +3,9 @@ class TodoList {
     this.id = id;
     this.title = title;
     this.tasks = tasks;
-    this.urgent = urgent ||false;
+    this.urgent = urgent || false;
   }
-  
+
   saveToStorage(){
     if (localStorage.length === 0){
       var list = [];
@@ -23,7 +23,14 @@ class TodoList {
   updateToDo(){
 
   }
-  updateTask(){
-
+  updateTask(completedTaskName) {
+    for (var i = 0; i < this.tasks.length; i++){
+      if (this.tasks[i].name === completedTaskName){
+        this.tasks[i].completeTask();
+      }
+    }
+  }
+  updateStorage(masterList){
+    localStorage.setItem("masterList", JSON.stringify(masterList));
   }
 }
