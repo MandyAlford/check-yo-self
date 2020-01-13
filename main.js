@@ -79,22 +79,6 @@ function generateCardContent(todoList){
           <div class="image ${checkboxStatus}"></div>
           <p>${todoList.tasks[i].name}</p>
        </div>`;
-
-
-
-    // if (todoList.tasks[i].completed === false){
-    //   tasks +=
-    //   `<div class="card-task">
-    //       <div class="image checkbox"></div>
-    //       <p>${todoList.tasks[i].name}</p>
-    //    </div>`;
-    // } else {
-    //   tasks +=
-    //     `<div class="card-task">
-    //         <div class="image checkbox-active"></div>
-    //         <p>${todoList.tasks[i].name}</p>
-    //      </div>`;
-    // }
   }
   return `<div class="card">
       <div class="card-title">
