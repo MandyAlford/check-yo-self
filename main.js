@@ -170,8 +170,6 @@ function cardAction(){
     completeTask();
   } else if (event.target.classList.contains('delete-card')){
     checkTaskStatus();
-    // deleteCard();
-    // removeTodoListFromStorge(event);
   }
 }
 
@@ -190,7 +188,6 @@ function checkTaskStatus(){
 
 function checkTasks(currentTodoList){
   currentTodoList.tasks.every(function(task) {
-    debugger
     if (task.completed === true){
       deleteCard();
       removeTodoListFromStorge(event);
@@ -220,18 +217,14 @@ function deleteCard(){
   event.target.parentElement.parentElement.remove();
 }
 
-// function pullActiveTodoList(event){
-//   return event.target.parentElement.parentElement.parentElement.children[0].innerText;
-// }
 
 function completeTask(){
   var currentTodoList
-  // var activeTodoListTitle = pullActiveTodoList(event);
-  // debugger
   var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
   var completedTaskName = event.target.nextElementSibling.innerText;
   var masterList = getTodoListsFromStorage();
-  //
+
+
   for (var i = 0; i<masterList.length; i++){
     if (masterList[i].title === activeTodoListTitle){
       currentTodoList = masterList[i];
