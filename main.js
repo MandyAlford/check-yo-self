@@ -7,9 +7,27 @@ document.querySelector('#make-task-btn').addEventListener('click', makeTaskList)
 document.querySelector('#task-title-input').addEventListener('keyup', enableMakeTaskBtn);
 document.querySelector('#clear-btn').addEventListener('click', clearAll);
 document.querySelector('.card-container').addEventListener('click', cardAction);
-
+document.querySelector('#search-btn').addEventListener('click', searchForTodo);
 
 document.onload = onPageLoad();
+
+function searchForTodo(){
+  var searchInput = document.querySelector('#search-input');
+  var cards = document.querySelectorAll('.card');
+
+    cards.forEach(function(card){
+    card.classList.add('hidden');
+    })
+
+  var list = getTodoListsFromStorage();
+  var filteredList = list.filter(function(todo){
+    if (searchInput.value === todo.title){
+      var todoCardContent = generateCardContent(todo);
+      addCardToPage(todoCardContent);
+      return todo;
+    }
+  })
+}
 
 function getTaskItem(){
     return document.querySelector('#task-item-input');
