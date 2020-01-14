@@ -9,36 +9,35 @@ document.querySelector('#clear-btn').addEventListener('click', clearAll);
 document.querySelector('.card-container').addEventListener('click', cardAction);
 document.querySelector('#search-btn').addEventListener('click', searchForTodo);
 document.querySelector('#search-input').addEventListener('keyup', resetCardContainer);
+document.querySelector('#filter-btn').addEventListener('click', filterByUrgency);
 
 document.onload = onPageLoad();
 
 function resetCardContainer(){
   var searchInput = document.querySelector('#search-input');
-  var cards = document.querySelectorAll('.card');
 
   if (searchInput.value === ""){
-    cards.forEach(function(card){
-    card.classList.remove('hidden');
-    })
+    onPageLoad();
   }
+}
+
+function filterByUrgency(){
+
 }
 
 function searchForTodo(){
   var searchInput = document.querySelector('#search-input');
-  var cards = document.querySelectorAll('.card');
-
-    cards.forEach(function(card){
-    card.classList.add('hidden');
-    })
-
   var list = getTodoListsFromStorage();
-  var filteredList = list.filter(function(todo){
-    if (todo.title.includes(searchInput.value)){
-      var todoCardContent = generateCardContent(todo);
-      addCardToPage(todoCardContent);
-      return todo;
-    }
+  var searchedList = list.filter(function(todo){
+      if (todo.title.includes(searchInput.value)){
+          return true;
+      }
   })
+  document.querySelector('.card-container').innerHTML = "";
+  for (var i = 0; i < searchedList.length; i++){
+    var todoCardContent = generateCardContent(searchedList[i]);
+    addCardToPage(todoCardContent);
+  }
 }
 
 function getTaskItem(){
