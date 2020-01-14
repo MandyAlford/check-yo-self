@@ -22,8 +22,9 @@ class TodoList {
     localStorage.setItem("masterList", JSON.stringify(masterList));
   }
 
-  updateToDo(){
-
+  updateToDo(masterList){
+    this.urgent = true;
+    localStorage.setItem("masterList", JSON.stringify(masterList));
   }
 
   updateTask(completedTaskName) {
@@ -33,6 +34,7 @@ class TodoList {
       }
     }
   }
+
   updateStorage(masterList){
     localStorage.setItem("masterList", JSON.stringify(masterList));
   }
