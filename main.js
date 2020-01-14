@@ -22,6 +22,22 @@ function resetCardContainer(){
 }
 
 function filterByUrgency(){
+  event.target.classList.add('highlight');
+  var list = getTodoListsFromStorage();
+  var urgentList = list.filter(function(todo){
+    if (todo.urgent === true){
+      return true;
+    }
+  });
+  document.querySelector('.card-container').innerHTML = "";
+  for (var i = 0; i < urgentList.length; i++){
+    var todoCardContent = generateCardContent(urgentList[i]);
+    debugger
+    addCardToPage(todoCardContent);
+    }
+}
+
+function checkForUrgency(){
 
 }
 
