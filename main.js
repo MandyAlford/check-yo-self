@@ -9,7 +9,7 @@ document.querySelector('#clear-btn').addEventListener('click', clearAll);
 document.querySelector('.card-container').addEventListener('click', cardAction);
 document.querySelector('#search-btn').addEventListener('click', searchForTodo);
 document.querySelector('#search-input').addEventListener('keyup', resetCardContainer);
-document.querySelector('#filter-btn').addEventListener('click', filterByUrgency);
+document.querySelector('#filter-btn').addEventListener('click', checkForUrgency);
 
 document.onload = onPageLoad();
 
@@ -38,7 +38,12 @@ function filterByUrgency(){
 }
 
 function checkForUrgency(){
-
+  if (event.target.classList.contains('highlight')){
+    event.target.classList.remove('highlight');
+    onPageLoad();
+  } else {
+    filterByUrgency();
+  }
 }
 
 function searchForTodo(){
