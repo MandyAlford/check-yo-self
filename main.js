@@ -8,8 +8,20 @@ document.querySelector('#task-title-input').addEventListener('keyup', enableMake
 document.querySelector('#clear-btn').addEventListener('click', clearAll);
 document.querySelector('.card-container').addEventListener('click', cardAction);
 document.querySelector('#search-btn').addEventListener('click', searchForTodo);
+document.querySelector('#search-input').addEventListener('keyup', resetCardContainer);
 
 document.onload = onPageLoad();
+
+function resetCardContainer(){
+  var searchInput = document.querySelector('#search-input');
+  var cards = document.querySelectorAll('.card');
+
+  if (searchInput.value === ""){
+    cards.forEach(function(card){
+    card.classList.remove('hidden');
+    })
+  }
+}
 
 function searchForTodo(){
   var searchInput = document.querySelector('#search-input');
