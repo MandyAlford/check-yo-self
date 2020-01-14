@@ -8,6 +8,7 @@ document.querySelector('#task-title-input').addEventListener('keyup', enableMake
 document.querySelector('#clear-btn').addEventListener('click', clearAll);
 document.querySelector('.card-container').addEventListener('click', cardAction);
 
+
 document.onload = onPageLoad();
 
 function getTaskItem(){

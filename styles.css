@@ -95,9 +95,9 @@ body {
 }
 
 .card-container {
-  background-color: #F2F6F7;
-  column-width: 26em;
-  columns: 29em;
+    background-color: #F2F6F7;
+    column-width: 26em;
+    columns: 29em;
     width: 68%;
     min-height: 100vh;
     padding-top: 1%;
@@ -106,8 +106,10 @@ body {
 .card {
   background-color: #fafdff;
   border: solid 3px #c7d3d8;
+  break-inside: avoid;
   color: #1F1E3D;
   margin: 2%;
+  position: relative;
   break-inside: avoid;
 }
 
