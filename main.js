@@ -17,6 +17,7 @@ function resetCardContainer(){
   var searchInput = document.querySelector('#search-input');
 
   if (searchInput.value === ""){
+    document.querySelector('.card-container').innerHTML = "";
     onPageLoad();
   }
 }
@@ -40,6 +41,7 @@ function filterByUrgency(){
 function checkForUrgency(){
   if (event.target.classList.contains('highlight')){
     event.target.classList.remove('highlight');
+    document.querySelector('.card-container').innerHTML = "";
     onPageLoad();
   } else {
     filterByUrgency();
