@@ -183,3 +183,7 @@ div.urgency.urgent-active {
   color: #3c6577;
   font-style: italic;
 }
+
+.hidden {
+  display: none;
+}
