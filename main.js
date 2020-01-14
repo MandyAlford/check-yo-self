@@ -181,22 +181,16 @@ function checkTaskStatus(){
   for (var i = 0; i<masterList.length; i++){
     if (masterList[i].title === activeTodoListTitle){
       currentTodoList = masterList[i];
-      checkTasks(currentTodoList);
     }
+  }
+
+  if (currentTodoList.allTasksCompleted()) {
+    deleteCard();
+    removeTodoListFromStorge(event);
   }
 }
 
-function checkTasks(currentTodoList){
-  currentTodoList.tasks.every(function(task) {
-    if (task.completed === true){
-      deleteCard();
-      removeTodoListFromStorge(event);
-    }
-  })
-}
-
 function removeTodoListFromStorge(event){
-
   var activeTodoListTitle = event.target.parentElement.parentElement.children[0].innerText.trim();
   var masterList = getTodoListsFromStorage();
   var currentTodoList
@@ -223,7 +217,6 @@ function completeTask(){
   var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
   var completedTaskName = event.target.nextElementSibling.innerText;
   var masterList = getTodoListsFromStorage();
-
 
   for (var i = 0; i<masterList.length; i++){
     if (masterList[i].title === activeTodoListTitle){
