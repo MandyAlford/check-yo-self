@@ -68,6 +68,7 @@ function addCardToPage(todoCardContent){
 
 function generateCardContent(todoList){
   var tasks = '';
+  var urgentStatus = determineUrgency(todoList);
 
   for(var i = 0; i < todoList.tasks.length; i++) {
     var checkboxStatus
@@ -92,10 +93,18 @@ function generateCardContent(todoList){
     ${tasks}
       </div>
       <div class="card-action">
-        <img src="assets/urgent.svg" class="mark-urgent">
+        <div class="urgency ${urgentStatus}"></div>
         <img src="assets/delete.svg" class="delete-card">
       </div>
     </div>`
+}
+
+function determineUrgency(todoList){
+  if (todoList.urgent === true){
+    return "urgent-active"
+  } else {
+    return "mark-urgent";
+  }
 }
 
 function clearDraftTask(){
@@ -170,7 +179,16 @@ function cardAction(){
     completeTask();
   } else if (event.target.classList.contains('delete-card')){
     checkTaskStatus();
+  } else if (event.target.classList.contains('mark-urgent')){
+    markAsUrgent();
   }
+}
+
+function markAsUrgent(){
+debugger
+  event.target.classList.remove('mark-urgent');
+  event.target.classList.add('urgent-active');
+  event.target.parentElement.parentElement.classList.add('urgent');
 }
 
 function checkTaskStatus(){
@@ -201,8 +219,6 @@ function removeTodoListFromStorge(event){
       currentIndex = i;
     }
   }
-  console.log(currentTodoList, i);
-    debugger
   currentTodoList.deleteFromStorage(masterList, currentIndex);
 }
 
