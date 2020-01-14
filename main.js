@@ -23,6 +23,8 @@ function addTaskItem(){
                           </div>`;
   resetTaskItemInput();
   enableMakeTaskBtn();
+
+  document.querySelector('#clear-btn').classList.remove('avoid-clicks');
 }
 
 function resetTaskItemInput(){
@@ -70,14 +72,16 @@ function generateCardContent(todoList){
   for(var i = 0; i < todoList.tasks.length; i++) {
     var checkboxStatus
     if (todoList.tasks[i].completed === false){
-      checkboxStatus = "checkbox"
+      checkboxStatus = "checkbox";
+      classStatus = "";
     } else {
-      checkboxStatus = "checkbox-active"
+      checkboxStatus = "checkbox-active";
+      classStatus = 'class = "active"';
     }
     tasks +=
       `<div class="card-task">
           <div class="image ${checkboxStatus}"></div>
-          <p>${todoList.tasks[i].name}</p>
+          <p ${classStatus}>${todoList.tasks[i].name}</p>
        </div>`;
   }
   return `<div class="card">
@@ -88,8 +92,8 @@ function generateCardContent(todoList){
     ${tasks}
       </div>
       <div class="card-action">
-        <img src="assets/urgent.svg" alt="mark-urgent">
-        <img src="assets/delete.svg" alt="delete">
+        <img src="assets/urgent.svg" class="mark-urgent">
+        <img src="assets/delete.svg" class="delete-card">
       </div>
     </div>`
 }
@@ -157,21 +161,62 @@ function clearAll(){
   clearDraftTask();
   resetTaskItemInput();
   document.querySelector('#task-title-input').innerText = "";
+  document.querySelector('#clear-btn').classList.add('avoid-clicks');
 }
 
 function cardAction(){
   if (event.target.classList.contains('checkbox')){
     activateCheckbox();
     completeTask();
+  } else if (event.target.classList.contains('delete-card')){
+    checkTaskStatus();
   }
 }
+
+function checkTaskStatus(){
+  var activeTodoListTitle = event.target.parentElement.parentElement.children[0].innerText.trim();
+  var masterList = getTodoListsFromStorage();
+  var currentTodoList
+
+  for (var i = 0; i<masterList.length; i++){
+    if (masterList[i].title === activeTodoListTitle){
+      currentTodoList = masterList[i];
+    }
+  }
+
+  if (currentTodoList.allTasksCompleted()) {
+    deleteCard();
+    removeTodoListFromStorge(event);
+  }
+}
+
+function removeTodoListFromStorge(event){
+  var activeTodoListTitle = event.target.parentElement.parentElement.children[0].innerText.trim();
+  var masterList = getTodoListsFromStorage();
+  var currentTodoList
+
+  for (var i = 0; i<masterList.length; i++){
+    if (masterList[i].title === activeTodoListTitle){
+      currentTodoList = masterList[i];
+      currentIndex = i;
+    }
+  }
+  console.log(currentTodoList, i);
+    debugger
+  currentTodoList.deleteFromStorage(masterList, currentIndex);
+}
+
+
+function deleteCard(){
+  event.target.parentElement.parentElement.remove();
+}
+
 
 function completeTask(){
   var currentTodoList
   var activeTodoListTitle = event.target.parentElement.parentElement.parentElement.children[0].innerText;
   var completedTaskName = event.target.nextElementSibling.innerText;
   var masterList = getTodoListsFromStorage();
-  // debugger
 
   for (var i = 0; i<masterList.length; i++){
     if (masterList[i].title === activeTodoListTitle){
@@ -180,24 +225,7 @@ function completeTask(){
   }
   currentTodoList.updateTask(completedTaskName);
   currentTodoList.updateStorage(masterList);
-  // debugger
 }
-
-// function updateTaskStatus(currentTodoList, completedTaskName){
-//   console.log(currentTodoList, completedTaskName);
-
-  // for (var i = 0; i < currentTodoList.tasks.length; i++){
-  //   if (currentTodoList.tasks[i].name === completedTaskName){
-  //
-  //   }
-  // }
-  // currentTodoList.find(function(task){
-  //   if (task === currentTodoList.task){
-  //     console.log(currentTodoList.task);
-  //   }
-  // })
-  // masterList[i].
-// }
 
 function activateCheckbox(){
   event.target.classList.remove('checkbox');

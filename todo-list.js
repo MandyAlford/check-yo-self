@@ -17,12 +17,15 @@ class TodoList {
     localStorage.setItem("masterList", JSON.stringify(list));
   }
 
-  deleteFromStorage(){
-
+  deleteFromStorage(masterList, currentIndex){
+    masterList.splice(currentIndex, 1);
+    localStorage.setItem("masterList", JSON.stringify(masterList));
   }
+
   updateToDo(){
 
   }
+
   updateTask(completedTaskName) {
     for (var i = 0; i < this.tasks.length; i++){
       if (this.tasks[i].name === completedTaskName){
@@ -32,5 +35,11 @@ class TodoList {
   }
   updateStorage(masterList){
     localStorage.setItem("masterList", JSON.stringify(masterList));
+  }
+
+  allTasksCompleted() {
+    return this.tasks.every(function(task) {
+      return task.completed
+    })
   }
 }

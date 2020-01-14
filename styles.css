@@ -54,6 +54,7 @@ main {
 
 #add-task-btn {
   background-color: #1F1E3D;
+  cursor: grabbing;
   height: 34px;
   margin-bottom: -2.6%;
   margin-left: -1%;
@@ -79,6 +80,7 @@ main {
   background-color: #1F1E3D;
   border: solid 2px #1F1E3D;
   color: #ffffff;
+  cursor: grabbing;
   height: 35px;
   margin-bottom: 1%;
   margin-top: 1%;
@@ -93,7 +95,12 @@ body {
 
 .card-container {
   background-color: #F2F6F7;
-  width: 66%;
+  column-width: 26em;
+  /* width: 66%; */
+  columns: 29em;
+    width: 68%;
+    min-height: 100vh;
+    padding-top: 1%;
 }
 
 .card {
@@ -101,7 +108,8 @@ body {
   border: solid 3px #c7d3d8;
   color: #1F1E3D;
   margin: 2%;
-  width: 45%;
+  /* width: 45%; */
+  break-inside: avoid;
 }
 
 .card-title,
@@ -122,7 +130,7 @@ body {
 .task-list {
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  min-height: 100px;
 }
 
 .card-task{
@@ -148,12 +156,14 @@ body {
 
 .draft-task-item {
   align-items: center;
+  cursor: grabbing;
   display: flex;
   margin: 2%;
 }
 
 div.image.checkbox {
   content:url("assets/checkbox.svg");
+  cursor: grabbing;
 }
 
 div.image.checkbox-active {
