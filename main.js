@@ -21,7 +21,7 @@ function searchForTodo(){
 
   var list = getTodoListsFromStorage();
   var filteredList = list.filter(function(todo){
-    if (searchInput.value === todo.title){
+    if (todo.title.includes(searchInput.value)){
       var todoCardContent = generateCardContent(todo);
       addCardToPage(todoCardContent);
       return todo;
