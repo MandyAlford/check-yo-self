@@ -69,6 +69,7 @@ function addCardToPage(todoCardContent){
 function generateCardContent(todoList){
   var tasks = '';
   var urgentStatus = determineUrgency(todoList);
+  var cardUrgencyClass = determineCardUrgencyClass(todoList);
 
   for(var i = 0; i < todoList.tasks.length; i++) {
     var checkboxStatus
@@ -85,7 +86,8 @@ function generateCardContent(todoList){
           <p ${classStatus}>${todoList.tasks[i].name}</p>
        </div>`;
   }
-  return `<div class="card">
+
+  return `<div class="card ${cardUrgencyClass}">
       <div class="card-title">
       <h2 class="task-title">${todoList.title}</h2>
       </div>
@@ -104,6 +106,14 @@ function determineUrgency(todoList){
     return "urgent-active"
   } else {
     return "mark-urgent";
+  }
+}
+
+function determineCardUrgencyClass(todoList){
+  if (todoList.urgent === true) {
+    return "urgent"
+  } else {
+    return ''
   }
 }
 
@@ -181,11 +191,24 @@ function cardAction(){
     checkTaskStatus();
   } else if (event.target.classList.contains('mark-urgent')){
     markAsUrgent();
+    updateUrgency();
   }
 }
 
+function updateUrgency(){
+  var activeTodoListTitle = event.target.parentElement.parentElement.children[0].innerText.trim();
+  var masterList = getTodoListsFromStorage();
+  var currentTodoList
+
+  for (var i = 0; i<masterList.length; i++){
+    if (masterList[i].title === activeTodoListTitle){
+      currentTodoList = masterList[i];
+    }
+  }
+  currentTodoList.updateToDo(masterList);
+}
+
 function markAsUrgent(){
-debugger
   event.target.classList.remove('mark-urgent');
   event.target.classList.add('urgent-active');
   event.target.parentElement.parentElement.classList.add('urgent');
