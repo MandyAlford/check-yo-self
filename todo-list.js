@@ -36,4 +36,10 @@ class TodoList {
   updateStorage(masterList){
     localStorage.setItem("masterList", JSON.stringify(masterList));
   }
+
+  allTasksCompleted() {
+    return this.tasks.every(function(task) {
+      return task.completed
+    })
+  }
 }
