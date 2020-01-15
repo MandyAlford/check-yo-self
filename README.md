@@ -15,4 +15,4 @@ The nature of this app means constantly accessing to do list and task content vi
 ## Examples of the application in use
 
 This is what the website and bear look like when you first load it
-
+<img width="1438" alt="Screen Shot 2020-01-14 at 8 05 48 PM" src="https://user-images.githubusercontent.com/54858455/72402221-c1929b00-370b-11ea-8a31-70e3991e6a99.png">
