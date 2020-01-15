@@ -187,3 +187,12 @@ div.urgency.urgent-active {
 .hidden {
   display: none;
 }
+
+button.highlight {
+  background-color: #5652c4;
+}
+
+h3 {
+  color: red;
+  padding-left: 5%;
+}
