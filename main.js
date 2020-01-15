@@ -49,10 +49,30 @@ function checkForUrgency(){
 }
 
 function searchForTodo(){
+ var urgentBtn = document.querySelector('#filter-btn');
+  if (urgentBtn.classList.contains('highlight')) {
+    searchInUrgentTodos();
+  } else {
+    var searchInput = document.querySelector('#search-input');
+    var list = getTodoListsFromStorage();
+    var searchedList = list.filter(function(todo){
+        if (todo.title.includes(searchInput.value)){
+            return true;
+        }
+    })
+    document.querySelector('.card-container').innerHTML = "";
+    for (var i = 0; i < searchedList.length; i++){
+      var todoCardContent = generateCardContent(searchedList[i]);
+      addCardToPage(todoCardContent);
+    }
+  }
+}
+
+function searchInUrgentTodos(){
   var searchInput = document.querySelector('#search-input');
   var list = getTodoListsFromStorage();
   var searchedList = list.filter(function(todo){
-      if (todo.title.includes(searchInput.value)){
+      if ((todo.title.includes(searchInput.value)) && (todo.urgent === true)){
           return true;
       }
   })
@@ -62,6 +82,7 @@ function searchForTodo(){
     addCardToPage(todoCardContent);
   }
 }
+
 
 function getTaskItem(){
     return document.querySelector('#task-item-input');
