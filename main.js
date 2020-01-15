@@ -30,12 +30,15 @@ function filterByUrgency(){
       return true;
     }
   });
-  document.querySelector('.card-container').innerHTML = "";
-  for (var i = 0; i < urgentList.length; i++){
-    var todoCardContent = generateCardContent(urgentList[i]);
-    debugger
-    addCardToPage(todoCardContent);
-    }
+  if (urgentList.length === 0){
+    document.querySelector('.card-container').innerHTML = "<h3>You have no urgent todo's. Please mark some todo's urgent</h3>";
+  } else {
+    document.querySelector('.card-container').innerHTML = "";
+    for (var i = 0; i < urgentList.length; i++){
+      var todoCardContent = generateCardContent(urgentList[i]);
+      addCardToPage(todoCardContent);
+      }
+  }
 }
 
 function checkForUrgency(){
