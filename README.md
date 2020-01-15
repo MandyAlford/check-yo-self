@@ -28,3 +28,6 @@ Tasks filtered by urgency:
 
 Search within urgent tasks:
 <img width="1438" alt="Screen Shot 2020-01-14 at 8 05 48 PM" src="https://user-images.githubusercontent.com/54858455/72402221-c1929b00-370b-11ea-8a31-70e3991e6a99.png">
+
+## GitHub 
+[Mandy Alford](https://github.com/MandyAlford) </br>
